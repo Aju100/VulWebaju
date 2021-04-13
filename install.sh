@@ -59,15 +59,17 @@ installDvwa(){
 
 installWebgoat(){
     install_requirements
-    sudo docker pull webgoat/webgoat-8.0
-    sudo docker run -d --rm -p 8000:8000 webgoat/webgoat-8.0
-    echo "Running webgoat at localhost or ip:8000"
+    git clone https://github.com/WebGoat/WebGoat
+    cd WebGoat
+    sudo docker-compose up -d
+    echo "Running webgoat at localhost or ip:8080"
+    echo "Running webwolf at localhost or ip:9090"
 }
 
 installbwapp(){
     install_requirements
-    sudo docker run -d --rm -p 2000:2000 raesene/bwapp
-    echo "Running bwapp at localhost or ip:2000"
+    sudo docker run -d --rm -p 7000:7000 raesene/bwapp
+    echo "Running bwapp at localhost or ip:7000"
 }
 
 installMutillidae(){
