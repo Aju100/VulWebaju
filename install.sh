@@ -66,11 +66,11 @@ installWebgoat(){
     echo "Running webwolf at localhost or ip:9090"
 }
 
-installbwapp(){
-    install_requirements
-    sudo docker run -d --rm -p 7000:7000 raesene/bwapp
-    echo "Running bwapp at localhost or ip:7000"
-}
+#installbwapp(){
+#    install_requirements
+#    sudo docker run -d --rm -p 7000:7000 raesene/bwapp
+#    echo "Running bwapp at localhost or ip:7000"
+#}
 
 installMutillidae(){
     install_requirements
@@ -126,11 +126,10 @@ main(){
     $(colorGreen '1)') DVWA
     $(colorGreen '2)') Owasp Juice Shop
     $(colorGreen '3)') Webgoat
-    $(colorGreen '4)') bwapp
-    $(colorGreen '5)') Mutillidae
-    $(colorGreen '6)') Nodegoat
-    $(colorGreen '7)') Damm Vulnerable GraphQL
-    $(colorGreen '8)') Reset
+    $(colorGreen '4)') Mutillidae
+    $(colorGreen '5)') Nodegoat
+    $(colorGreen '6)') Damm Vulnerable GraphQL
+    $(colorGreen '7)') Reset
     $(colorGreen '0)') Exit
     $(colorGreen 'Choose an option to run:') 
     "    
@@ -139,11 +138,10 @@ main(){
         1) installDvwa ; main ;;
         2) installOwaspJuiceShop ; main ;;
         3) installWebgoat ; main ;;
-        4) installbwapp ; main ;;
-        5) installMltillidae ; main ;;
-        6) installNodegoat ; main ;;
-        7) installDVGraphql ; main ;;
-        8) cleanup ; main ;;
+        4) installMutillidae ; main ;;
+        5) installNodegoat ; main ;;
+        6) installDVGraphql ; main ;;
+        7) cleanup ; main ;;
     0) exit 0 ;;
     *) echo -e $red"Wrong option."$clear; 
     esac
