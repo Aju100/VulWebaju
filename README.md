@@ -18,8 +18,6 @@ ____   ____    .__  __      __      ___.               __
 - [DVWA](https://dvwa.co.uk/)
 - [Owasp Juice Shop](https://github.com/bkimminich/juice-shop)
 - [Web goat](https://github.com/WebGoat/WebGoat)
-- [bwapp](http://www.itsecgames.com/)
-- [Mutillidae](https://github.com/webpwnized/mutillidae)
 - [Nodegoat](https://github.com/OWASP/NodeGoat)
 - [Damm Vulnerable GraphQL](https://github.com/dolevf/Damn-Vulnerable-GraphQL-Application)
 

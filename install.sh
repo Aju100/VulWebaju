@@ -13,14 +13,14 @@
 # - DVWA                                               #
 # - Owasp Juice Shop                                   #
 # - Web goat                                           #
-# - bwapp                                              #
-# - Multidae                                           #
+# - Mutillidae                                         #
 # - Nodegoat                                           #
 # - DVgraphql                                          #
 ########################################################
 
 install_requirements(){
     sudo apt update -y
+    sudo apt install git
     sudo apt install docker.io -y
     sudo systemctl start docker
     sudo systemctl enable docker
@@ -31,8 +31,6 @@ install_requirements(){
 readonly cf="\\033[0m"
 readonly red="\\033[0;31m"
 readonly green="\\033[0;32m"
-readonly yellow="\\033[0;33m"
-readonly purple="\\033[0;35m"
 
 # color functions
 colorGreen(){
@@ -44,17 +42,16 @@ colorred(){
 }
 
 
+installDvwa(){
+    install_requirements
+    sudo docker run -d --rm -p 80:80 vulnerables/web-dvwa
+    echo "Running Dvwa at localhost"
+}
 
 installOwaspJuiceShop(){
     install_requirements
     sudo docker run -d --rm -p 3000:3000 bkimminich/juice-shop
     echo "Running Owasp Juice shop at localhost or ip:3000"
-}
-
-installDvwa(){
-    install_requirements
-    sudo docker run -d --rm -p 80:80 vulnerables/web-dvwa
-    echo "Running Dvwa at localhost"
 }
 
 installWebgoat(){
@@ -66,17 +63,6 @@ installWebgoat(){
     echo "Running webwolf at localhost or ip:9090"
 }
 
-#installbwapp(){
-#    install_requirements
-#    sudo docker run -d --rm -p 7000:7000 raesene/bwapp
-#    echo "Running bwapp at localhost or ip:7000"
-#}
-
-installMutillidae(){
-    install_requirements
-    sudo docker run -d --rm -p 1000:1000 citizenstig/nowasp
-    echo "Running Multidaee at localhost or ip:1000"
-}
 
 installNodegoat(){
     install_requirements
@@ -98,6 +84,25 @@ installDVGraphql(){
 
 installDvws(){
     install_requirements
+}
+
+
+installRailsgoat(){
+    install_requirements
+    git clone https://www.github.com/OWASP/railsgoat
+    sudo docker-compose up -d
+}
+
+installbwapp(){
+    install_requirements
+    sudo docker run -d --rm -p 7000:7000 raesene/bwapp
+    echo "Running bwapp at localhost or ip:7000"
+}
+
+installMutillidae(){
+    install_requirements
+    sudo docker run -d --rm -p 1000:1000 citizenstig/nowasp
+    echo "Running Multidaee at localhost or ip:1000"
 }
 
 cleanup(){
@@ -126,11 +131,10 @@ main(){
     $(colorGreen '1)') DVWA
     $(colorGreen '2)') Owasp Juice Shop
     $(colorGreen '3)') Webgoat
-    $(colorGreen '4)') Mutillidae
-    $(colorGreen '5)') Nodegoat
-    $(colorGreen '6)') Damm Vulnerable GraphQL
-    $(colorGreen '7)') Reset
-    $(colorGreen '0)') Exit
+    $(colorGreen '4)') Nodegoat
+    $(colorGreen '5)') Damm Vulnerable GraphQL
+    $(colorGreen '6)') Reset
+    $(colorGreen '7)') Exit
     $(colorGreen 'Choose an option to run:') 
     "    
     read a
@@ -138,10 +142,9 @@ main(){
         1) installDvwa ; main ;;
         2) installOwaspJuiceShop ; main ;;
         3) installWebgoat ; main ;;
-        4) installMutillidae ; main ;;
-        5) installNodegoat ; main ;;
-        6) installDVGraphql ; main ;;
-        7) cleanup ; main ;;
+        4) installNodegoat ; main ;;
+        5) installDVGraphql ; main ;;
+        6) cleanup ; main ;;
     0) exit 0 ;;
     *) echo -e $red"Wrong option."$clear; 
     esac
