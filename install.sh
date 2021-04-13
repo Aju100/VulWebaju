@@ -61,7 +61,7 @@ installWebgoat(){
     install_requirements
     sudo docker pull webgoat/webgoat-8.0
     sudo docker run -d --rm -p 8000:8000 webgoat/webgoat-8.0
-    echo "Running webgoat at localhost or ip:5000"
+    echo "Running webgoat at localhost or ip:8000"
 }
 
 installbwapp(){
