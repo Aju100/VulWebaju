@@ -20,7 +20,7 @@
 
 install_requirements(){
     sudo apt update -y
-    sudo install docker.io -y
+    sudo install docker.io 
     sudo systemctl start docker
     sudo systemctl enable docker
 }
