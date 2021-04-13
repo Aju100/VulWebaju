@@ -77,6 +77,7 @@ installMultidaee(){
 
 installNodegoat(){
     install_requirements
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.29.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     git clone https://github.com/OWASP/NodeGoat.git
     cd NodeGoat
     sudo docker-compose build
@@ -88,6 +89,7 @@ installDVGraphql(){
     install_requirements
     sudo docker pull dolevf/dvga
     sudo docker run -d -p 5000:5000 -e WEB_HOST=0.0.0.0 dolevf/dvga
+    echo "Running DVGraphql at localhost or ip:5000"
 }
 
 installDvws(){
