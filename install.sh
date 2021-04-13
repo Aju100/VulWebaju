@@ -16,6 +16,7 @@
 # - bwapp                                              #
 # - Multidae                                           #
 # - Nodegoat                                           #
+# - DVgraphql                                          #
 ########################################################
 
 install_requirements(){
@@ -69,7 +70,7 @@ installbwapp(){
     echo "Running bwapp at localhost or ip:2000"
 }
 
-installMultidaee(){
+installMutillidae(){
     install_requirements
     sudo docker run -d --rm -p 1000:1000 citizenstig/nowasp
     echo "Running Multidaee at localhost or ip:1000"
@@ -90,7 +91,7 @@ installDVGraphql(){
     install_requirements
     sudo docker pull dolevf/dvga
     sudo docker run -d -p 5000:5000 -e WEB_HOST=0.0.0.0 dolevf/dvga
-    echo "Running DVGraphql at localhost or ip:5000"
+    echo "Running Damm Vulnerable GraphQL at localhost or ip:5000"
 }
 
 installDvws(){
@@ -124,9 +125,9 @@ main(){
     $(colorGreen '2)') Owasp Juice Shop
     $(colorGreen '3)') Webgoat
     $(colorGreen '4)') bwapp
-    $(colorGreen '5)') Multidaee
+    $(colorGreen '5)') Mutillidae
     $(colorGreen '6)') Nodegoat
-    $(colorGreen '7)') DVGraphql
+    $(colorGreen '7)') Damm Vulnerable GraphQL
     $(colorGreen '8)') Reset
     $(colorGreen '0)') Exit
     $(colorGreen 'Choose an option to run:') 
@@ -137,7 +138,7 @@ main(){
         2) installOwaspJuiceShop ; main ;;
         3) installWebgoat ; main ;;
         4) installbwapp ; main ;;
-        5) installMultidaee ; main ;;
+        5) installMltillidae ; main ;;
         6) installNodegoat ; main ;;
         7) installDVGraphql ; main ;;
         8) cleanup ; main ;;
