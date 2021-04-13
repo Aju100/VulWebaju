@@ -59,7 +59,7 @@ installDvwa(){
 installWebgoat(){
     install_requirements
     sudo docker pull webgoat/webgoat-8.0
-    sudo docker run -d --rm -p 5000:5000 webgoat/webgoat-8.0
+    sudo docker run -d --rm -p 8000:8000 webgoat/webgoat-8.0
     echo "Running webgoat at localhost or ip:5000"
 }
 
@@ -82,6 +82,16 @@ installNodegoat(){
     sudo docker-compose build
     sudo docker-compose up -d
     echo "Running Nodegoat at localhost or ip:4000"
+}
+
+installDVGraphql(){
+    install_requirements
+    sudo docker pull dolevf/dvga
+    sudo docker run -d -p 5000:5000 -e WEB_HOST=0.0.0.0 dolevf/dvga
+}
+
+installDvws(){
+    install_requirements
 }
 
 cleanup(){
@@ -113,7 +123,8 @@ main(){
     $(colorGreen '4)') bwapp
     $(colorGreen '5)') Multidaee
     $(colorGreen '6)') Nodegoat
-    $(colorGreen '7)') Reset
+    $(colorGreen '7)') DVGraphql
+    $(colorGreen '8)') Reset
     $(colorGreen '0)') Exit
     $(colorGreen 'Choose an option to run:') 
     "    
@@ -125,7 +136,8 @@ main(){
         4) installbwapp ; main ;;
         5) installMultidaee ; main ;;
         6) installNodegoat ; main ;;
-        7) cleanup ; main ;;
+        7) installDVGraphql ; main ;;
+        8) cleanup ; main ;;
     0) exit 0 ;;
     *) echo -e $red"Wrong option."$clear; 
     esac
