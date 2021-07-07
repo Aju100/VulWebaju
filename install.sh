@@ -93,6 +93,14 @@ installRailsgoat(){
     sudo docker-compose up -d
 }
 
+installOAuth(){
+    install_requirements
+    git clone https://github.com/koenbuyens/Vulnerable-OAuth-2.0-Applications
+    cd Vulnerable-OAuth-2.0-Applications/insecureapplication
+    sudo docker-compose up -d
+    echo "Running attacker: localhost:1337, photoprint: localhost:3000, gallery localhost:3005"
+}
+
 installbwapp(){
     install_requirements
     sudo docker run -d --rm -p 7000:7000 raesene/bwapp
@@ -110,6 +118,7 @@ cleanup(){
     sudo docker rmi $(docker images)
     sudo docker system prune 
     sudo rm -r NodeGoat
+    sudo rm -r Vulnerable-OAuth-2.0-Applications
 }
 
 
@@ -133,8 +142,9 @@ main(){
     $(colorGreen '3)') Webgoat
     $(colorGreen '4)') Nodegoat
     $(colorGreen '5)') Damm Vulnerable GraphQL
-    $(colorGreen '6)') Reset
-    $(colorGreen '7)') Exit
+    $(colorGreen '6)') Vulnerable OAuth 2.0 Applications
+    $(colorGreen '7)') Reset
+    $(colorGreen '8)') Exit
     $(colorGreen 'Choose an option to run:') 
     "    
     read a
@@ -144,7 +154,8 @@ main(){
         3) installWebgoat ; main ;;
         4) installNodegoat ; main ;;
         5) installDVGraphql ; main ;;
-        6) cleanup ; main ;;
+        6) installOAuth ; main ;;
+        7) cleanup ; main ;;
     0) exit 0 ;;
     *) echo -e $red"Wrong option."$clear; 
     esac
