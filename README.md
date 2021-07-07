@@ -20,6 +20,8 @@ ____   ____    .__  __      __      ___.               __
 - [Web goat](https://github.com/WebGoat/WebGoat)
 - [Nodegoat](https://github.com/OWASP/NodeGoat)
 - [Damm Vulnerable GraphQL](https://github.com/dolevf/Damn-Vulnerable-GraphQL-Application)
+- [Rails Goat](https://www.github.com/OWASP/railsgoat)
+- [OAuth 2.0 Application](https://github.com/koenbuyens/Vulnerable-OAuth-2.0-Applications)
 
 ### Installation
 
