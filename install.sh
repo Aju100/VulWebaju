@@ -13,9 +13,10 @@
 # - DVWA                                               #
 # - Owasp Juice Shop                                   #
 # - Web goat                                           #
-# - Mutillidae                                         #
+# - RailsGoat                                          #
 # - Nodegoat                                           #
 # - DVgraphql                                          #
+# - OAuth 2.0                                          #
 ########################################################
 
 install_requirements(){
@@ -82,15 +83,15 @@ installDVGraphql(){
     echo "Running Damm Vulnerable GraphQL at localhost or ip:5000"
 }
 
-installDvws(){
-    install_requirements
-}
-
 
 installRailsgoat(){
     install_requirements
     git clone https://www.github.com/OWASP/railsgoat
+    cd railsgoat
+    sudo docker-compose build
+    sudo docker-compose run web rails db:setup
     sudo docker-compose up -d
+    echo "Running Railsgoat at localhost:3000"
 }
 
 installOAuth(){
@@ -101,24 +102,13 @@ installOAuth(){
     echo "Running attacker: localhost:1337, photoprint: localhost:3000, gallery localhost:3005"
 }
 
-installbwapp(){
-    install_requirements
-    sudo docker run -d --rm -p 7000:7000 raesene/bwapp
-    echo "Running bwapp at localhost or ip:7000"
-}
-
-installMutillidae(){
-    install_requirements
-    sudo docker run -d --rm -p 1000:1000 citizenstig/nowasp
-    echo "Running Multidaee at localhost or ip:1000"
-}
-
 cleanup(){
     sudo docker stop $(docker ps -a -q)
     sudo docker rmi $(docker images)
     sudo docker system prune 
     sudo rm -r NodeGoat
     sudo rm -r Vulnerable-OAuth-2.0-Applications
+    sudo rm -r railsgoat
 }
 
 
@@ -143,8 +133,9 @@ main(){
     $(colorGreen '4)') Nodegoat
     $(colorGreen '5)') Damm Vulnerable GraphQL
     $(colorGreen '6)') Vulnerable OAuth 2.0 Applications
-    $(colorGreen '7)') Reset
-    $(colorGreen '8)') Exit
+    $(colorGreen '7)') Railsgoat
+    $(colorGreen '8)') Reset
+    $(colorGreen '9)') Exit
     $(colorGreen 'Choose an option to run:') 
     "    
     read a
@@ -155,7 +146,8 @@ main(){
         4) installNodegoat ; main ;;
         5) installDVGraphql ; main ;;
         6) installOAuth ; main ;;
-        7) cleanup ; main ;;
+        7) installRailsgoat ; main ;;
+        8) cleanup ; main ;;
     0) exit 0 ;;
     *) echo -e $red"Wrong option."$clear; 
     esac
