@@ -22,6 +22,12 @@ ____   ____    .__  __      __      ___.               __
 - [Damm Vulnerable GraphQL](https://github.com/dolevf/Damn-Vulnerable-GraphQL-Application)
 - [Rails Goat](https://www.github.com/OWASP/railsgoat)
 - [OAuth 2.0 Application](https://github.com/koenbuyens/Vulnerable-OAuth-2.0-Applications)
+- [Xeelab](https://github.com/jbarone/xxelab)
+- [DVWP](https://github.com/vavkamil/dvwp)
+- [XSSLab](https://github.com/kiwicom/xssable)
+- [TiredAPI](https://github.com/siddharthbezalwar/Tiredful-API-py3-beta)
+- [Vulnerable Nginx](https://github.com/detectify/vulnerable-nginx)
+- [SSRF Vulnerable Lab](https://github.com/incredibleindishell/SSRF_Vulnerable_Lab)
 
 ### Installation
 
