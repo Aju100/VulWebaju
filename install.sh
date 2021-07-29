@@ -17,6 +17,7 @@
 # - Nodegoat                                           #
 # - DVgraphql                                          #
 # - OAuth 2.0                                          #
+# - XXE lab                                            #
 ########################################################
 
 install_requirements(){
@@ -102,6 +103,75 @@ installOAuth(){
     echo "Running attacker: localhost:1337, photoprint: localhost:3000, gallery localhost:3005"
 }
 
+installXeelab(){
+    install_requirements
+    git clone https://github.com/jbarone/xxelab
+    cd xxelab
+    docker build -t xxelab .
+    docker run -it --rm -p 127.0.0.1:5000:80 xxelab
+}
+
+installdvwp(){
+    install_requirements
+    git clone https://github.com/vavkamil/dvwp
+    cd dvwp
+    docker-compose up -d
+}
+
+installXsslab(){
+    install_requirements
+    git clone https://github.com/kiwicom/xssable
+    cd xssable
+    docker build . -t xssable:latest
+    docker run -p 5000:5000 xssable:latest
+}
+
+installTiredAPI(){
+    install_requirements
+    git clone https://github.com/siddharthbezalwar/Tiredful-API-py3-beta
+    cd Tiredful-API-py3-beta
+    docker build -t tiredful .
+    docker run -p 8000:8000 --name tiredful -it tiredful
+}
+
+installVulnerablenginx(){
+    install_requirements
+    git clone https://github.com/detectify/vulnerable-nginx
+    cd vulnerable-nginx
+    docker-compose up
+}
+
+installSSRFvulnerable(){
+    install_requirements
+    git clone https://github.com/incredibleindishell/SSRF_Vulnerable_Lab
+    cd SSRF_Vulnerable_Lab
+    docker build -t ssrf .
+    docker run -p 9000 ssrf:latest
+}
+installmonitor(){
+    # grafana
+    docker run -d -p 3000:3000 --name grafana grafana/grafana:6.5.0
+    # loki
+    wget https://raw.githubusercontent.com/grafana/loki/v2.2.1/production/docker-compose.yaml -O docker-compose.yaml
+    docker-compose -f docker-compose.yaml up
+    # prometheus
+    docker run -p 9090:9090 prom/prometheus
+    # cadvisor
+    VERSION=v0.36.0 # use the latest release version from https://github.com/google/cadvisor/releases
+    sudo docker run \
+    --volume=/:/rootfs:ro \
+    --volume=/var/run:/var/run:ro \
+    --volume=/sys:/sys:ro \
+    --volume=/var/lib/docker/:/var/lib/docker:ro \
+    --volume=/dev/disk/:/dev/disk:ro \
+    --publish=8080:8080 \
+    --detach=true \
+    --name=cadvisor \
+    --privileged \
+    --device=/dev/kmsg \
+    gcr.io/cadvisor/cadvisor:$VERSION
+
+}
 cleanup(){
     sudo docker stop $(docker ps -a -q)
     sudo docker rmi $(docker images)
@@ -134,8 +204,14 @@ main(){
     $(colorGreen '5)') Damm Vulnerable GraphQL
     $(colorGreen '6)') Vulnerable OAuth 2.0 Applications
     $(colorGreen '7)') Railsgoat
-    $(colorGreen '8)') Reset
-    $(colorGreen '9)') Exit
+    $(colorGreen '8)') XEElab
+    $(colorGreen '9)') Damm Vulnerable Wordpress
+    $(colorGreen '10)') XSSlab
+    $(colorGreen '11)') TiredAPI
+    $(colorGreen '12)') Vulnerablenginx
+    $(colorGreen '13)') SSRFvulnerable
+    $(colorGreen '14)') Reset
+    $(colorGreen '15)') Exit
     $(colorGreen 'Choose an option to run:') 
     "    
     read a
@@ -147,7 +223,13 @@ main(){
         5) installDVGraphql ; main ;;
         6) installOAuth ; main ;;
         7) installRailsgoat ; main ;;
-        8) cleanup ; main ;;
+        8) installXeelab ; main ;;
+        9) installdvwp ; main ;;
+        10) installXsslab ; main ;;
+        11) installTiredAPI ; main ;;
+        12) installVulnerablenginx ; main ;;
+        13) installSSRFvulnerable ; main ;;
+        14) cleanup ; main ;;
     0) exit 0 ;;
     *) echo -e $red"Wrong option."$clear; 
     esac
