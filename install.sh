@@ -18,6 +18,12 @@
 # - DVgraphql                                          #
 # - OAuth 2.0                                          #
 # - XXE lab                                            #
+# - Vulnerable-OAuth-2.0-Applications                  #
+# - xxelab                                             #
+# - dvwp                                               #
+# - xssable                                            #
+# - Tiredful-API-py3-beta                              #
+# - SSRF_Vulnerable_Lab                                #
 ########################################################
 
 install_requirements(){
@@ -179,6 +185,16 @@ cleanup(){
     sudo rm -r NodeGoat
     sudo rm -r Vulnerable-OAuth-2.0-Applications
     sudo rm -r railsgoat
+
+    sudo rm -r Vulnerable-OAuth-2.0-Applications
+    sudo rm -r railsgoat
+    sudo rm -r WebGoat
+    sudo rm -r railsgoat
+    sudo rm -r xxelab
+    sudo rm -r dvwp
+    sudo rm -r xssable
+    sudo rm -r Tiredful-API-py3-beta
+    sudo rm -r SSRF_Vulnerable_Lab
 }
 
 
