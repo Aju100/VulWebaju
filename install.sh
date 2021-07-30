@@ -24,6 +24,8 @@
 # - xssable                                            #
 # - Tiredful-API-py3-beta                              #
 # - SSRF_Vulnerable_Lab                                #
+# - Bwapp                                              #
+# - Multillidae                                        #
 # - Monitoring via Prometheus, Grafana                 #
 ########################################################
 
