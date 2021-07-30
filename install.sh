@@ -63,6 +63,18 @@ installOwaspJuiceShop(){
     echo "Running Owasp Juice shop at localhost or ip:3000"
 }
 
+installbwapp(){
+    install_requirements
+    sudo docker run -p 8082:80 feltsecure/owasp-bwapp
+}
+
+installmultillidae(){
+    install_requirements
+    sudo docker run -p 8083:80 bltsec/mutillidae-docker
+    echo "Running multillidae at localhost:port/mutillidae"
+}
+
+
 installWebgoat(){
     install_requirements
     git clone https://github.com/WebGoat/WebGoat
@@ -228,9 +240,11 @@ main(){
     $(colorGreen '11)') TiredAPI
     $(colorGreen '12)') Vulnerablenginx
     $(colorGreen '13)') SSRFvulnerable
-    $(colorGreen '14') Monitoring via Prometheus, Grafana
-    $(colorGreen '15)') Reset
-    $(colorGreen '16)') Exit
+    $(colorGreen '14') Bwapp
+    $(colorGreen '15') Multillidae
+    $(colorGreen '16') Monitoring via Prometheus, Grafana
+    $(colorGreen '17)') Reset
+    $(colorGreen '18)') Exit
     $(colorGreen 'Choose an option to run:') 
     "    
     read a
@@ -249,10 +263,12 @@ main(){
         12) installVulnerablenginx ; main ;;
         13) installSSRFvulnerable ; main ;;
         14) installmonitor ; main ;;
-        15) cleanup ; main ;;
+        15) installbwapp ; main ;;
+        16) installmultillidae ; main ;;
+        17) cleanup ; main ;;
     0) exit 0 ;;
     *) echo -e $red"Wrong option."$clear; 
     esac
 }
 
-main
+#main
