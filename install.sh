@@ -24,6 +24,7 @@
 # - xssable                                            #
 # - Tiredful-API-py3-beta                              #
 # - SSRF_Vulnerable_Lab                                #
+# - Monitoring via Prometheus, Grafana                 #
 ########################################################
 
 install_requirements(){
@@ -154,6 +155,7 @@ installSSRFvulnerable(){
     docker build -t ssrf .
     docker run -p 9000 ssrf:latest
 }
+
 installmonitor(){
     # grafana
     docker run -d -p 3000:3000 --name grafana grafana/grafana:6.5.0
@@ -176,8 +178,8 @@ installmonitor(){
     --privileged \
     --device=/dev/kmsg \
     gcr.io/cadvisor/cadvisor:$VERSION
-
 }
+
 cleanup(){
     sudo docker stop $(docker ps -a -q)
     sudo docker rmi $(docker images)
@@ -226,8 +228,9 @@ main(){
     $(colorGreen '11)') TiredAPI
     $(colorGreen '12)') Vulnerablenginx
     $(colorGreen '13)') SSRFvulnerable
-    $(colorGreen '14)') Reset
-    $(colorGreen '15)') Exit
+    $(colorGreen '14') Monitoring via Prometheus, Grafana
+    $(colorGreen '15)') Reset
+    $(colorGreen '16)') Exit
     $(colorGreen 'Choose an option to run:') 
     "    
     read a
@@ -245,7 +248,8 @@ main(){
         11) installTiredAPI ; main ;;
         12) installVulnerablenginx ; main ;;
         13) installSSRFvulnerable ; main ;;
-        14) cleanup ; main ;;
+        14) installmonitor ; main ;;
+        15) cleanup ; main ;;
     0) exit 0 ;;
     *) echo -e $red"Wrong option."$clear; 
     esac
