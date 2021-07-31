@@ -55,37 +55,22 @@ colorred(){
 
 installDvwa(){
     install_requirements
-    sudo docker run -d --rm -p 80:80 vulnerables/web-dvwa
-    echo "Running Dvwa at localhost"
+    sudo docker run -d --rm -p 8001:80 vulnerables/web-dvwa
+    echo "Running Dvwa at localhost:8001"
 }
 
 installOwaspJuiceShop(){
     install_requirements
     sudo docker run -d --rm -p 3000:3000 bkimminich/juice-shop
-    echo "Running Owasp Juice shop at localhost or ip:3000"
+    echo "Running Owasp Juice shop at localhost:3000"
 }
-
-installbwapp(){
-    install_requirements
-    sudo docker run -p 8082:80 feltsecure/owasp-bwapp
-}
-
-installmultillidae(){
-    install_requirements
-    sudo docker run -p 8083:80 bltsec/mutillidae-docker
-    echo "Running multillidae at localhost:port/mutillidae"
-}
-
 
 installWebgoat(){
     install_requirements
-    git clone https://github.com/WebGoat/WebGoat
-    cd WebGoat
-    sudo docker-compose up -d
-    echo "Running webgoat at localhost or ip:8080"
-    echo "Running webwolf at localhost or ip:9090"
+    sudo docker run -p -d 127.0.0.1:8080:8080 -p 127.0.0.1:9090:9090 -e TZ=Europe/Amsterdam webgoat/goatandwolf
+    echo "Running webgoat at localhost:8080/WebGoat"
+    echo "Running webwolf at localhost:9090"
 }
-
 
 installNodegoat(){
     install_requirements
@@ -95,25 +80,14 @@ installNodegoat(){
     cd NodeGoat
     sudo docker-compose build
     sudo docker-compose up -d
-    echo "Running Nodegoat at localhost or ip:4000"
+    echo "Running Nodegoat at localhost:4000"
 }
 
 installDVGraphql(){
     install_requirements
     sudo docker pull dolevf/dvga
     sudo docker run -d -p 5000:5000 -e WEB_HOST=0.0.0.0 dolevf/dvga
-    echo "Running Damm Vulnerable GraphQL at localhost or ip:5000"
-}
-
-
-installRailsgoat(){
-    install_requirements
-    git clone https://www.github.com/OWASP/railsgoat
-    cd railsgoat
-    sudo docker-compose build
-    sudo docker-compose run web rails db:setup
-    sudo docker-compose up -d
-    echo "Running Railsgoat at localhost:3000"
+    echo "Running Damm Vulnerable GraphQL at localhost:5000"
 }
 
 installOAuth(){
@@ -124,12 +98,23 @@ installOAuth(){
     echo "Running attacker: localhost:1337, photoprint: localhost:3000, gallery localhost:3005"
 }
 
+installRailsgoat(){
+    install_requirements    
+    git clone https://www.github.com/OWASP/railsgoat
+    cd railsgoat
+    sudo docker-compose build
+    sudo docker-compose run web rails db:setup
+    sudo docker-compose up -d
+    echo "Running Railsgoat at localhost:3000"
+}
+
 installXeelab(){
     install_requirements
     git clone https://github.com/jbarone/xxelab
     cd xxelab
     docker build -t xxelab .
-    docker run -it --rm -p 127.0.0.1:5000:80 xxelab
+    docker run -d --rm -p 127.0.0.1:5000:80 xxelab
+    echo "Running XEELab at localhost:5000"
 }
 
 installdvwp(){
@@ -137,6 +122,7 @@ installdvwp(){
     git clone https://github.com/vavkamil/dvwp
     cd dvwp
     docker-compose up -d
+    echo "Running DVWP at localhost:31337"
 }
 
 installXsslab(){
@@ -144,7 +130,8 @@ installXsslab(){
     git clone https://github.com/kiwicom/xssable
     cd xssable
     docker build . -t xssable:latest
-    docker run -p 5000:5000 xssable:latest
+    docker run -d -p 5000:5000 xssable:latest
+    echo "Running XSSLab at localhost:5000"
 }
 
 installTiredAPI(){
@@ -152,14 +139,16 @@ installTiredAPI(){
     git clone https://github.com/siddharthbezalwar/Tiredful-API-py3-beta
     cd Tiredful-API-py3-beta
     docker build -t tiredful .
-    docker run -p 8000:8000 --name tiredful -it tiredful
+    docker run -d -p 8000:8000 --name tiredful -it tiredful
+    echo "Running TiredAPI at localhost:8000"
 }
 
 installVulnerablenginx(){
     install_requirements
     git clone https://github.com/detectify/vulnerable-nginx
     cd vulnerable-nginx
-    docker-compose up
+    docker-compose up -d
+    echo "Running Vulnerablenginx at localhost:5000"
 }
 
 installSSRFvulnerable(){
@@ -167,7 +156,19 @@ installSSRFvulnerable(){
     git clone https://github.com/incredibleindishell/SSRF_Vulnerable_Lab
     cd SSRF_Vulnerable_Lab
     docker build -t ssrf .
-    docker run -p 9000 ssrf:latest
+    docker run -p -d 9000 ssrf:latest
+}
+
+installbwapp(){
+    install_requirements
+    sudo docker run -d -p 8082:80 feltsecure/owasp-bwapp
+    echo "Running bwapp at http://127.0.0.1:8082/install.php"
+}
+
+installmultillidae(){
+    install_requirements
+    sudo docker run -d -p 8083:80 bltsec/mutillidae-docker
+    echo "Running multillidae at http://127.0.0.1:8083/mutillidae/"
 }
 
 installmonitor(){
@@ -197,12 +198,10 @@ installmonitor(){
 cleanup(){
     sudo docker stop $(docker ps -a -q)
     sudo docker rmi $(docker images)
-    sudo docker system prune 
+    sudo docker system prune
     sudo rm -r NodeGoat
     sudo rm -r Vulnerable-OAuth-2.0-Applications
     sudo rm -r railsgoat
-
-    sudo rm -r Vulnerable-OAuth-2.0-Applications
     sudo rm -r railsgoat
     sudo rm -r WebGoat
     sudo rm -r railsgoat
@@ -212,8 +211,6 @@ cleanup(){
     sudo rm -r Tiredful-API-py3-beta
     sudo rm -r SSRF_Vulnerable_Lab
 }
-
-
 
 printf """$green
 
@@ -264,13 +261,13 @@ main(){
         11) installTiredAPI ; main ;;
         12) installVulnerablenginx ; main ;;
         13) installSSRFvulnerable ; main ;;
-        14) installmonitor ; main ;;
-        15) installbwapp ; main ;;
-        16) installmultillidae ; main ;;
+        14) installbwapp ; main ;;
+        15) installmultillidae ; main ;;
+        16) installmonitor ; main ;;
         17) cleanup ; main ;;
     0) exit 0 ;;
     *) echo -e $red"Wrong option."$clear; 
     esac
 }
 
-#main
+main
