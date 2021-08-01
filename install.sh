@@ -195,6 +195,26 @@ installmonitor(){
     gcr.io/cadvisor/cadvisor:$VERSION
 }
 
+installALL(){
+    install_requirements
+    installDvwa
+    installbwapp
+    installDVGraphql
+    installdvwp
+    installVulnerablenginx
+    installNodegoat
+    installmultillidae
+    installOAuth
+    installXsslab
+    installXeelab
+    installWebgoat
+    installTiredAPI
+    installSSRFvulnerable
+    installRailsgoat
+    installOwaspJuiceShop
+    installMonitor
+}
+
 cleanup(){
     sudo docker stop $(docker ps -a -q)
     sudo docker rmi $(docker images)
@@ -242,8 +262,9 @@ main(){
     $(colorGreen '14') Bwapp
     $(colorGreen '15') Multillidae
     $(colorGreen '16') Monitoring via Prometheus, Grafana
-    $(colorGreen '17)') Reset
-    $(colorGreen '18)') Exit
+    $(colorGreen '17)') Install ALL labs
+    $(colorGreen '18)') Reset
+    $(colorGreen '19)') Exit
     $(colorGreen 'Choose an option to run:') 
     "    
     read a
@@ -264,7 +285,8 @@ main(){
         14) installbwapp ; main ;;
         15) installmultillidae ; main ;;
         16) installmonitor ; main ;;
-        17) cleanup ; main ;;
+        17) installALL ; main ;;
+        18) cleanup ; main ;;
     0) exit 0 ;;
     *) echo -e $red"Wrong option."$clear; 
     esac
