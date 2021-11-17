@@ -114,7 +114,7 @@ installXeelab(){
     git clone https://github.com/jbarone/xxelab
     cd xxelab
     docker build -t xxelab .
-    docker run -d --rm -p 127.0.0.1:5000:80 xxelab
+    docker run -it --rm -p 127.0.0.1:5000:80 xxelab
     echo "Running XEELab at localhost:5000"
 }
 
@@ -123,25 +123,19 @@ installdvwp(){
     git clone https://github.com/vavkamil/dvwp
     cd dvwp
     docker-compose up -d
-    echo "Running DVWP at localhost:31337"
+    echo "Running DVWP at http://127.0.0.1:31337"
 }
 
 installXsslab(){
     install_requirements
-    git clone https://github.com/kiwicom/xssable
-    cd xssable
-    docker build . -t xssable:latest
-    docker run -d -p 5000:5000 xssable:latest
-    echo "Running XSSLab at localhost:5000"
+    docker run -d -p 5000:5000 csaju/xssable
+    echo "Running XSSLab at http://127.0.0.1:5000"
 }
 
 installTiredAPI(){
     install_requirements
-    git clone https://github.com/siddharthbezalwar/Tiredful-API-py3-beta
-    cd Tiredful-API-py3-beta
-    docker build -t tiredful .
-    docker run -d -p 8000:8000 --name tiredful -it tiredful
-    echo "Running TiredAPI at localhost:8000"
+    sudo docker run -d -p 8000:8000 -it csaju/tiredful
+    echo "Running TiredAPI at http://127.0.0.1:8000"
 }
 
 installVulnerablenginx(){
@@ -149,34 +143,31 @@ installVulnerablenginx(){
     git clone https://github.com/detectify/vulnerable-nginx
     cd vulnerable-nginx
     docker-compose up -d
-    echo "Running Vulnerablenginx at localhost:5000"
+    echo "Running Vulnerablenginx at http://127.0.0.1:5000/cats/"
 }
 
 installSSRFvulnerable(){
     install_requirements
-    git clone https://github.com/incredibleindishell/SSRF_Vulnerable_Lab
-    cd SSRF_Vulnerable_Lab
-    docker build -t ssrf .
-    docker run -p -d 9000 ssrf:latest
+    sudo docker run -p -d 8082:80 csaju/ssrf_vulnerable_lab
+    echo "Running SSRFVulnerable at http://127.0.0.1:8082/install.php"
 }
 
 installbwapp(){
     install_requirements
-    sudo docker run -d -p 8082:80 feltsecure/owasp-bwapp
-    echo "Running bwapp at http://127.0.0.1:8082/install.php"
+    sudo docker run -d -p 8083:80 feltsecure/owasp-bwapp
+    echo "Running bwapp at http://127.0.0.1:8083/install.php"
 }
 
 installmultillidae(){
     install_requirements
-    sudo docker run -d -p 8083:80 bltsec/mutillidae-docker
-    echo "Running multillidae at http://127.0.0.1:8083/mutillidae/"
+    sudo docker run -d -p 8084:80 csaju/mutillidae
+    echo "Running multillidae at http://127.0.0.1:8084/mutillidae/"
 }
 
 installWackopico(){
     install_requirements
     sudo docker pull csaju/wackopicko
     sudo docker run -d -p 8084:80 csaju/wackopicko
-    #sudo docker run -d -p 8084:80 csaju/wackopico
     echo "Running Wackopico at http://127.0.0.1:8084"
 }
 
