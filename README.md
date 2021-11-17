@@ -28,6 +28,7 @@ ____   ____    .__  __      __      ___.               __
 - [TiredAPI](https://github.com/siddharthbezalwar/Tiredful-API-py3-beta)
 - [Vulnerable Nginx](https://github.com/detectify/vulnerable-nginx)
 - [SSRF Vulnerable Lab](https://github.com/incredibleindishell/SSRF_Vulnerable_Lab)
+- [Wackopicko](https://github.com/adamdoupe/WackoPicko)
 
 ### Installation
 

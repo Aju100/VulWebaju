@@ -36,6 +36,8 @@ install_requirements(){
     sudo apt install docker.io -y
     sudo systemctl start docker
     sudo systemctl enable docker
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.29.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
 }
 
 
@@ -57,38 +59,36 @@ colorred(){
 installDvwa(){
     install_requirements
     sudo docker run -d --rm -p 8001:80 vulnerables/web-dvwa
-    echo "Running Dvwa at localhost:8001"
+    echo "Running Dvwa at http://127.0.0.1:8001"
 }
 
 installOwaspJuiceShop(){
     install_requirements
     sudo docker run -d --rm -p 3000:3000 bkimminich/juice-shop
-    echo "Running Owasp Juice shop at localhost:3000"
+    echo "Running Owasp Juice shop at http://127.0.0.1:3000"
 }
 
 installWebgoat(){
     install_requirements
     sudo docker run -p -d 127.0.0.1:8080:8080 -p 127.0.0.1:9090:9090 -e TZ=Europe/Amsterdam webgoat/goatandwolf
-    echo "Running webgoat at localhost:8080/WebGoat"
-    echo "Running webwolf at localhost:9090"
+    echo "Running webgoat at http://127.0.0.1:8080/WebGoat"
+    echo "Running webwolf at http://127.0.0.1:9090"
 }
 
 installNodegoat(){
     install_requirements
-    sudo curl -L "https://github.com/docker/compose/releases/download/1.29.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    sudo chmod +x /usr/local/bin/docker-compose
     git clone https://github.com/OWASP/NodeGoat.git
     cd NodeGoat
     sudo docker-compose build
     sudo docker-compose up -d
-    echo "Running Nodegoat at localhost:4000"
+    echo "Running Nodegoat at http://127.0.0.1:4000"
 }
 
 installDVGraphql(){
     install_requirements
     sudo docker pull dolevf/dvga
     sudo docker run -d -p 5000:5000 -e WEB_HOST=0.0.0.0 dolevf/dvga
-    echo "Running Damm Vulnerable GraphQL at localhost:5000"
+    echo "Running Damm Vulnerable GraphQL at http://127.0.0.1:5000"
 }
 
 installOAuth(){
@@ -96,7 +96,7 @@ installOAuth(){
     git clone https://github.com/koenbuyens/Vulnerable-OAuth-2.0-Applications
     cd Vulnerable-OAuth-2.0-Applications/insecureapplication
     sudo docker-compose up -d
-    echo "Running attacker: localhost:1337, photoprint: localhost:3000, gallery localhost:3005"
+    echo "Running attacker: http://127.0.0.1:1337, photoprint: http://127.0.0.1:3000, gallery http://127.0.0.1:3005"
 }
 
 installRailsgoat(){
@@ -106,7 +106,7 @@ installRailsgoat(){
     sudo docker-compose build
     sudo docker-compose run web rails db:setup
     sudo docker-compose up -d
-    echo "Running Railsgoat at localhost:3000"
+    echo "Running Railsgoat at http://127.0.0.1:3000"
 }
 
 installXeelab(){
@@ -115,7 +115,7 @@ installXeelab(){
     cd xxelab
     docker build -t xxelab .
     docker run -it --rm -p 127.0.0.1:5000:80 xxelab
-    echo "Running XEELab at localhost:5000"
+    echo "Running XEELab at http://127.0.0.1:5000"
 }
 
 installdvwp(){
