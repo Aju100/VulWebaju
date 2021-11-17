@@ -26,6 +26,7 @@
 # - SSRF_Vulnerable_Lab                                #
 # - Bwapp                                              #
 # - Multillidae                                        #
+# - Wackopicko                                         #
 # - Monitoring via Prometheus, Grafana                 #
 ########################################################
 
@@ -171,6 +172,14 @@ installmultillidae(){
     echo "Running multillidae at http://127.0.0.1:8083/mutillidae/"
 }
 
+installWackopico(){
+    install_requirements
+    sudo docker pull csaju/wackopicko
+    sudo docker run -d -p 8084:80 csaju/wackopicko
+    #sudo docker run -d -p 8084:80 csaju/wackopico
+    echo "Running Wackopico at http://127.0.0.1:8084"
+}
+
 installmonitor(){
     # grafana
     docker run -d -p 3000:3000 --name grafana grafana/grafana:6.5.0
@@ -213,6 +222,7 @@ installALL(){
     installRailsgoat
     installOwaspJuiceShop
     installMonitor
+    installWackopico
 }
 
 cleanup(){
@@ -259,12 +269,13 @@ main(){
     $(colorGreen '11)') TiredAPI
     $(colorGreen '12)') Vulnerablenginx
     $(colorGreen '13)') SSRFvulnerable
-    $(colorGreen '14') Bwapp
-    $(colorGreen '15') Multillidae
-    $(colorGreen '16') Monitoring via Prometheus, Grafana
-    $(colorGreen '17)') Install ALL labs
-    $(colorGreen '18)') Reset
-    $(colorGreen '19)') Exit
+    $(colorGreen '14)') Bwapp
+    $(colorGreen '15)') Multillidae
+    $(colorGreen '16)') Wackopico
+    $(colorGreen '17)') Monitoring via Prometheus, Grafana
+    $(colorGreen '18)') Install ALL labs
+    $(colorGreen '19)') Reset
+    $(colorGreen '20)') Exit
     $(colorGreen 'Choose an option to run:') 
     "    
     read a
@@ -284,9 +295,11 @@ main(){
         13) installSSRFvulnerable ; main ;;
         14) installbwapp ; main ;;
         15) installmultillidae ; main ;;
-        16) installmonitor ; main ;;
-        17) installALL ; main ;;
-        18) cleanup ; main ;;
+        16) installWackopico ; main ;;
+        17) installmonitor ; main ;;
+        18) installALL ; main ;;
+        19) cleanup ; main ;;
+        20) exit 1; main;;
     0) exit 0 ;;
     *) echo -e $red"Wrong option."$clear; 
     esac
