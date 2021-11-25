@@ -27,6 +27,8 @@
 # - Bwapp                                              #
 # - Multillidae                                        #
 # - Wackopicko                                         #
+# - XSS Lab(0l4bs)                                     #
+# - Vulnerable API(vapi)                               # 
 # - Monitoring via Prometheus, Grafana                 #
 ########################################################
 
@@ -171,6 +173,20 @@ installWackopico(){
     echo "Running Wackopico at http://127.0.0.1:8084"
 }
 
+install0l4bs(){
+    install_requirements
+    sudo docker run --name web-ctf -d -it -p 8085:80 hightechsec/xsslabs
+    echo "Running XSS Lab at http://127.0.0.1:8085"
+}
+
+installVapi(){
+    install_requirements
+    git clone https://github.com/roottusk/vapi
+    cd vapi
+    sudo docker-compose up -d
+    echo "Running xss lab at http://127.0.0.1/vapi"
+}
+
 installmonitor(){
     # grafana
     docker run -d -p 3000:3000 --name grafana grafana/grafana:6.5.0
@@ -214,11 +230,13 @@ installALL(){
     installOwaspJuiceShop
     installMonitor
     installWackopico
+    install0l4bs
+    installVapi
 }
 
 cleanup(){
-    sudo docker stop $(docker ps -a -q)
-    sudo docker rmi $(docker images)
+    sudo docker stop $(sudo docker ps -a -q)
+    sudo docker rmi $(sudo docker images)
     sudo docker system prune
     sudo rm -r NodeGoat
     sudo rm -r Vulnerable-OAuth-2.0-Applications
@@ -263,10 +281,12 @@ main(){
     $(colorGreen '14)') Bwapp
     $(colorGreen '15)') Multillidae
     $(colorGreen '16)') Wackopico
-    $(colorGreen '17)') Monitoring via Prometheus, Grafana
-    $(colorGreen '18)') Install ALL labs
-    $(colorGreen '19)') Reset
-    $(colorGreen '20)') Exit
+    $(colorGreen '17)') XSS Lab
+    $(colorGreen '18)') Vulnerable API
+    $(colorGreen '19)') Monitoring via Prometheus, Grafana
+    $(colorGreen '20)') Install ALL labs
+    $(colorGreen '21)') Reset
+    $(colorGreen '22)') Exit
     $(colorGreen 'Choose an option to run:') 
     "    
     read a
@@ -287,10 +307,12 @@ main(){
         14) installbwapp ; main ;;
         15) installmultillidae ; main ;;
         16) installWackopico ; main ;;
-        17) installmonitor ; main ;;
-        18) installALL ; main ;;
-        19) cleanup ; main ;;
-        20) exit 1; main;;
+        17) install0l4bs ; main ;;
+        18) installVapi ; main ;;
+        19) installmonitor ; main ;;
+        20) installALL ; main ;;
+        21) cleanup ; main ;;
+        22) exit 1; main;;
     0) exit 0 ;;
     *) echo -e $red"Wrong option."$clear; 
     esac

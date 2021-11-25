@@ -29,6 +29,8 @@ ____   ____    .__  __      __      ___.               __
 - [Vulnerable Nginx](https://github.com/detectify/vulnerable-nginx)
 - [SSRF Vulnerable Lab](https://github.com/incredibleindishell/SSRF_Vulnerable_Lab)
 - [Wackopicko](https://github.com/adamdoupe/WackoPicko)
+- [0l4bs](https://github.com/tegal1337/0l4bs)
+- [Vapi](https://github.com/roottusk/vapi)
 
 ### Installation
 
