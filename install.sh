@@ -29,7 +29,7 @@
 # - Wackopicko                                         #
 # - XSS Lab(0l4bs)                                     #
 # - Vulnerable API(vapi)                               # 
-# - Monitoring via Prometheus, Grafana                 #
+# - Govwa                                              #
 ########################################################
 
 install_requirements(){
@@ -184,31 +184,16 @@ installVapi(){
     git clone https://github.com/roottusk/vapi
     cd vapi
     sudo docker-compose up -d
-    echo "Running xss lab at http://127.0.0.1/vapi"
+    echo "Running Vapi lab at http://127.0.0.1/vapi"
 }
 
-installmonitor(){
-    # grafana
-    docker run -d -p 3000:3000 --name grafana grafana/grafana:6.5.0
-    # loki
-    wget https://raw.githubusercontent.com/grafana/loki/v2.2.1/production/docker-compose.yaml -O docker-compose.yaml
-    docker-compose -f docker-compose.yaml up
-    # prometheus
-    docker run -p 9090:9090 prom/prometheus
-    # cadvisor
-    VERSION=v0.36.0 # use the latest release version from https://github.com/google/cadvisor/releases
-    sudo docker run \
-    --volume=/:/rootfs:ro \
-    --volume=/var/run:/var/run:ro \
-    --volume=/sys:/sys:ro \
-    --volume=/var/lib/docker/:/var/lib/docker:ro \
-    --volume=/dev/disk/:/dev/disk:ro \
-    --publish=8080:8080 \
-    --detach=true \
-    --name=cadvisor \
-    --privileged \
-    --device=/dev/kmsg \
-    gcr.io/cadvisor/cadvisor:$VERSION
+installgovwa(){
+    install_requirements
+    git clone https://github.com/0c34/govwa.git
+    cd govwa
+    sudo docker-compose up -d
+    echo  "Running govwa at http://127.0.0.1:8888"
+
 }
 
 installALL(){
@@ -232,6 +217,7 @@ installALL(){
     installWackopico
     install0l4bs
     installVapi
+    installgovwa
 }
 
 cleanup(){
@@ -249,6 +235,7 @@ cleanup(){
     sudo rm -r xssable
     sudo rm -r Tiredful-API-py3-beta
     sudo rm -r SSRF_Vulnerable_Lab
+    sudo rm -r govwa
 }
 
 printf """$green
@@ -283,7 +270,7 @@ main(){
     $(colorGreen '16)') Wackopico
     $(colorGreen '17)') XSS Lab
     $(colorGreen '18)') Vulnerable API
-    $(colorGreen '19)') Monitoring via Prometheus, Grafana
+    $(colorGreen '19)') Govwa
     $(colorGreen '20)') Install ALL labs
     $(colorGreen '21)') Reset
     $(colorGreen '22)') Exit
@@ -309,7 +296,7 @@ main(){
         16) installWackopico ; main ;;
         17) install0l4bs ; main ;;
         18) installVapi ; main ;;
-        19) installmonitor ; main ;;
+        19) installgovwa ; main ;;
         20) installALL ; main ;;
         21) cleanup ; main ;;
         22) exit 1; main;;
