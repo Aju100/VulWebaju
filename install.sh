@@ -30,6 +30,7 @@
 # - XSS Lab(0l4bs)                                     #
 # - Vulnerable API(vapi)                               # 
 # - Govwa                                              #
+# - WannaRace                                          #
 ########################################################
 
 install_requirements(){
@@ -59,26 +60,22 @@ colorred(){
 
 
 installDvwa(){
-    install_requirements
     sudo docker run -d --rm -p 8001:80 vulnerables/web-dvwa
     echo "Running Dvwa at http://127.0.0.1:8001"
 }
 
 installOwaspJuiceShop(){
-    install_requirements
     sudo docker run -d --rm -p 3000:3000 bkimminich/juice-shop
     echo "Running Owasp Juice shop at http://127.0.0.1:3000"
 }
 
 installWebgoat(){
-    install_requirements
     sudo docker run -p -d 127.0.0.1:8080:8080 -p 127.0.0.1:9090:9090 -e TZ=Europe/Amsterdam webgoat/goatandwolf
     echo "Running webgoat at http://127.0.0.1:8080/WebGoat"
     echo "Running webwolf at http://127.0.0.1:9090"
 }
 
 installNodegoat(){
-    install_requirements
     git clone https://github.com/OWASP/NodeGoat.git
     cd NodeGoat
     sudo docker-compose build
@@ -87,14 +84,12 @@ installNodegoat(){
 }
 
 installDVGraphql(){
-    install_requirements
     sudo docker pull dolevf/dvga
     sudo docker run -d -p 5000:5000 -e WEB_HOST=0.0.0.0 dolevf/dvga
     echo "Running Damm Vulnerable GraphQL at http://127.0.0.1:5000"
 }
 
 installOAuth(){
-    install_requirements
     git clone https://github.com/koenbuyens/Vulnerable-OAuth-2.0-Applications
     cd Vulnerable-OAuth-2.0-Applications/insecureapplication
     sudo docker-compose up -d
@@ -102,7 +97,6 @@ installOAuth(){
 }
 
 installRailsgoat(){
-    install_requirements    
     git clone https://www.github.com/OWASP/railsgoat
     cd railsgoat
     sudo docker-compose build
@@ -112,7 +106,6 @@ installRailsgoat(){
 }
 
 installXeelab(){
-    install_requirements
     git clone https://github.com/jbarone/xxelab
     cd xxelab
     docker build -t xxelab .
@@ -121,7 +114,6 @@ installXeelab(){
 }
 
 installdvwp(){
-    install_requirements
     git clone https://github.com/vavkamil/dvwp
     cd dvwp
     docker-compose up -d
@@ -129,19 +121,16 @@ installdvwp(){
 }
 
 installXsslab(){
-    install_requirements
     docker run -d -p 5000:5000 csaju/xssable
     echo "Running XSSLab at http://127.0.0.1:5000"
 }
 
 installTiredAPI(){
-    install_requirements
     sudo docker run -d -p 8000:8000 -it csaju/tiredful
     echo "Running TiredAPI at http://127.0.0.1:8000"
 }
 
 installVulnerablenginx(){
-    install_requirements
     git clone https://github.com/detectify/vulnerable-nginx
     cd vulnerable-nginx
     docker-compose up -d
@@ -149,38 +138,32 @@ installVulnerablenginx(){
 }
 
 installSSRFvulnerable(){
-    install_requirements
     sudo docker run -p -d 8082:80 csaju/ssrf_vulnerable_lab
     echo "Running SSRFVulnerable at http://127.0.0.1:8082/install.php"
 }
 
 installbwapp(){
-    install_requirements
     sudo docker run -d -p 8083:80 feltsecure/owasp-bwapp
     echo "Running bwapp at http://127.0.0.1:8083/install.php"
 }
 
 installmultillidae(){
-    install_requirements
     sudo docker run -d -p 8084:80 csaju/mutillidae
     echo "Running multillidae at http://127.0.0.1:8084/mutillidae/"
 }
 
 installWackopico(){
-    install_requirements
     sudo docker pull csaju/wackopicko
     sudo docker run -d -p 8084:80 csaju/wackopicko
     echo "Running Wackopico at http://127.0.0.1:8084"
 }
 
 install0l4bs(){
-    install_requirements
     sudo docker run --name web-ctf -d -it -p 8085:80 hightechsec/xsslabs
     echo "Running XSS Lab at http://127.0.0.1:8085"
 }
 
 installVapi(){
-    install_requirements
     git clone https://github.com/roottusk/vapi
     cd vapi
     sudo docker-compose up -d
@@ -188,12 +171,17 @@ installVapi(){
 }
 
 installgovwa(){
-    install_requirements
     git clone https://github.com/0c34/govwa.git
     cd govwa
     sudo docker-compose up -d
     echo  "Running govwa at http://127.0.0.1:8888"
+}
 
+installWannaRace(){
+    git clone https://github.com/Xib3rR4dAr/WannaRace && cd WannaRace
+    sudo docker build -t xib3rr4dar/wanna_race:1.0 .
+    sudo docker run -it --rm xib3rr4dar/wanna_race:1.0
+    echo "Running WannaRace at  http://172.17.0.2 "
 }
 
 installALL(){
@@ -218,6 +206,7 @@ installALL(){
     install0l4bs
     installVapi
     installgovwa
+    installWannaRace
 }
 
 cleanup(){
@@ -236,6 +225,7 @@ cleanup(){
     sudo rm -r Tiredful-API-py3-beta
     sudo rm -r SSRF_Vulnerable_Lab
     sudo rm -r govwa
+    sudo rm -r WannaRace
 }
 
 printf """$green
@@ -271,9 +261,11 @@ main(){
     $(colorGreen '17)') XSS Lab
     $(colorGreen '18)') Vulnerable API
     $(colorGreen '19)') Govwa
-    $(colorGreen '20)') Install ALL labs
-    $(colorGreen '21)') Reset
-    $(colorGreen '22)') Exit
+    $(colorGreen '20)') WannaRace
+    $(colorGreen '21)') Install ALL labs
+    $(colorGreen '22)') Reset
+    $(colorGreen '23)') Install requirements
+    $(colorGreen '24)') Exit
     $(colorGreen 'Choose an option to run:') 
     "    
     read a
@@ -297,9 +289,11 @@ main(){
         17) install0l4bs ; main ;;
         18) installVapi ; main ;;
         19) installgovwa ; main ;;
-        20) installALL ; main ;;
-        21) cleanup ; main ;;
-        22) exit 1; main;;
+        20) installWannaRace ; main ;;
+        21) installALL ; main ;;
+        22) cleanup ; main ;;
+        23) install_requirements ; main ;;
+        24) exit 1; main;;
     0) exit 0 ;;
     *) echo -e $red"Wrong option."$clear; 
     esac

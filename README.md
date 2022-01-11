@@ -32,6 +32,7 @@ ____   ____    .__  __      __      ___.               __
 - [0l4bs](https://github.com/tegal1337/0l4bs)
 - [Vapi](https://github.com/roottusk/vapi)
 - [Govwa](https://github.com/0c34/govwa)
+- [WannaRace](https://github.com/Xib3rR4dAr/WannaRace)
 
 ### Installation
 
@@ -41,6 +42,19 @@ cd VulWebaju
 sudo ./install.sh
 ```
 
+> Make sure you have installed [Docker](https://docs.docker.com/install/).
+
+```bash
+sudo apt update -y
+sudo apt install git
+sudo apt install docker.io -y
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+```
+
+You can use also call ```install_requirements``` function via install.sh script to install all requirements.
 ### Contribute
 
 Contributions are always welcome! Please read the [contribution guidelines](./CONTRIBUTING.md) first.
