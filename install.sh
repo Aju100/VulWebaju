@@ -31,6 +31,7 @@
 # - Vulnerable API(vapi)                               # 
 # - Govwa                                              #
 # - WannaRace                                          #
+# - VulnLab                                            #
 ########################################################
 
 install_requirements(){
@@ -181,7 +182,14 @@ installWannaRace(){
     git clone https://github.com/Xib3rR4dAr/WannaRace && cd WannaRace
     sudo docker build -t xib3rr4dar/wanna_race:1.0 .
     sudo docker run -it --rm xib3rr4dar/wanna_race:1.0
-    echo "Running WannaRace at  http://172.17.0.2 "
+    echo "Running WannaRace at  http://172.17.0.2"
+}
+
+installVulnLab(){
+    git clone https://github.com/Yavuzlar/VulnLab && cd VulnLab
+    sudo docker build -t yavuzlar/vulnlab .
+    docker run -d -p 1337:80 yavuzlar/vulnlab
+    echo "Running VulnLab at http://1337:80"
 }
 
 installALL(){
@@ -207,6 +215,7 @@ installALL(){
     installVapi
     installgovwa
     installWannaRace
+    installVulnLab
 }
 
 cleanup(){
@@ -226,6 +235,7 @@ cleanup(){
     sudo rm -r SSRF_Vulnerable_Lab
     sudo rm -r govwa
     sudo rm -r WannaRace
+    sudo rm -r VulnLab
 }
 
 printf """$green
@@ -262,10 +272,11 @@ main(){
     $(colorGreen '18)') Vulnerable API
     $(colorGreen '19)') Govwa
     $(colorGreen '20)') WannaRace
-    $(colorGreen '21)') Install ALL labs
-    $(colorGreen '22)') Reset
-    $(colorGreen '23)') Install requirements
-    $(colorGreen '24)') Exit
+    $(colorGreen '21)') VulnLab
+    $(colorGreen '22)') Install ALL labs
+    $(colorGreen '23)') Reset
+    $(colorGreen '24)') Install requirements
+    $(colorGreen '25)') Exit
     $(colorGreen 'Choose an option to run:') 
     "    
     read a
@@ -290,10 +301,11 @@ main(){
         18) installVapi ; main ;;
         19) installgovwa ; main ;;
         20) installWannaRace ; main ;;
-        21) installALL ; main ;;
-        22) cleanup ; main ;;
-        23) install_requirements ; main ;;
-        24) exit 1; main;;
+        21) installVulnLab ; main ;;
+        22) installALL ; main ;;
+        23) cleanup ; main ;;
+        24) install_requirements ; main ;;
+        25) exit 1; main;;
     0) exit 0 ;;
     *) echo -e $red"Wrong option."$clear; 
     esac

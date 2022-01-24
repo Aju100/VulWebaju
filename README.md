@@ -33,6 +33,7 @@ ____   ____    .__  __      __      ___.               __
 - [Vapi](https://github.com/roottusk/vapi)
 - [Govwa](https://github.com/0c34/govwa)
 - [WannaRace](https://github.com/Xib3rR4dAr/WannaRace)
+- [VulnLab](https://github.com/Yavuzlar/VulnLab.git)
 
 ### Installation
 
@@ -55,6 +56,19 @@ sudo chmod +x /usr/local/bin/docker-compose
 ```
 
 You can use also call ```install_requirements``` function via install.sh script to install all requirements.
+
+### Other labs
+You can also try other labs if you are interested in learning.
+- [Kubernetes Goat](https://github.com/madhuakula/kubernetes-goat)
+- [Vulnerable Graphql Api](https://github.com/CarveSystems/vulnerable-graphql-api)
+- [Websheep](https://github.com/marmicode/websheep)
+- [Vfapi](https://github.com/naryal2580/vfapi)
+- [Lets be bad guys](https://github.com/mpirnat/lets-be-bad-guys)
+- [DSVW](https://github.com/stamparm/DSVW)
+- [Dvpwa](https://github.com/anxolerd/dvpwa)
+- [Go test bench](https://github.com/Contrast-Security-OSS/go-test-bench)
+- [Generic University](https://github.com/InsiderPhD/Generic-University)
+
 ### Contribute
 
 Contributions are always welcome! Please read the [contribution guidelines](./CONTRIBUTING.md) first.

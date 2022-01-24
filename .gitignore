@@ -11,3 +11,4 @@
 docker-compose.yaml
 /vulnerable-nginx
 /govwa
+/VulnLab
