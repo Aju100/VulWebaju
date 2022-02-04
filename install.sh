@@ -71,9 +71,9 @@ installOwaspJuiceShop(){
 }
 
 installWebgoat(){
-    sudo docker run -p -d 127.0.0.1:8080:8080 -p 127.0.0.1:9090:9090 -e TZ=Europe/Amsterdam webgoat/goatandwolf
+    sudo docker run -it -p 127.0.0.1:80:8888 -p 127.0.0.1:8080:8080 -p 127.0.0.1:9090:9090 -e TZ=Europe/Amsterdam webgoat/goatandwolf:v8.2.2
     echo "Running webgoat at http://127.0.0.1:8080/WebGoat"
-    echo "Running webwolf at http://127.0.0.1:9090"
+    echo "Running webwolf at http://127.0.0.1:9090/WebWolf"
 }
 
 installNodegoat(){
