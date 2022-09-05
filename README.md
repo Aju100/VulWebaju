@@ -68,6 +68,9 @@ You can also try other labs if you are interested in learning.
 - [Dvpwa](https://github.com/anxolerd/dvpwa)
 - [Go test bench](https://github.com/Contrast-Security-OSS/go-test-bench)
 - [Generic University](https://github.com/InsiderPhD/Generic-University)
+- [Cfngoat - Vulnerable Cloudformation Template](https://github.com/bridgecrewio/cfngoat)
+- [TerraGoat](https://github.com/bridgecrewio/terragoat)
+- [Wrong Secrets](https://github.com/commjoen/wrongsecrets)
 
 ### Contribute
 
