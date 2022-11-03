@@ -71,6 +71,7 @@ You can also try other labs if you are interested in learning.
 - [Cfngoat - Vulnerable Cloudformation Template](https://github.com/bridgecrewio/cfngoat)
 - [TerraGoat](https://github.com/bridgecrewio/terragoat)
 - [Wrong Secrets](https://github.com/commjoen/wrongsecrets)
+- [VAmPI](https://github.com/erev0s/VAmPI)
 
 ### Contribute
 
