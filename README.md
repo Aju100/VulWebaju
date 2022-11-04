@@ -72,6 +72,7 @@ You can also try other labs if you are interested in learning.
 - [TerraGoat](https://github.com/bridgecrewio/terragoat)
 - [Wrong Secrets](https://github.com/commjoen/wrongsecrets)
 - [VAmPI](https://github.com/erev0s/VAmPI)
+- [iGoat-Swift](https://github.com/OWASP/iGoat-Swift)
 
 ### Contribute
 
